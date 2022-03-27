@@ -53,13 +53,29 @@ class Vehicle:
         if lead1 & lead2 & lead3 & lead4 & lead5:
             delta_x1 = lead1.x - self.x - lead1.l
             delta_v1 = self.v - lead1.v
-
-            alpha1 = (self.s0 + max(0, self.T*self.v + delta_v1*self.v/self.sqrt_ab)) / delta_x1
-            alpha2 = (self.s0 + max(0, self.T*self.v + delta_v2*self.v/self.sqrt_ab)) / delta_x2
-            alpha3 = (self.s0 + max(0, self.T*self.v + delta_v3*self.v/self.sqrt_ab)) / delta_x3
-            alpha4 = (self.s0 + max(0, self.T*self.v + delta_v4*self.v/self.sqrt_ab)) / delta_x4
-            alpha5 = (self.s0 + max(0, self.T*self.v + delta_v5*self.v/self.sqrt_ab)) / delta_x5
+            
+            if lead1.x - self.x < r:
+                alpha1 = (self.s0 + max(0, self.T*self.v + delta_v1*self.v/self.sqrt_ab)) / delta_x1
+            else:
+                alpha1 = 0
+            if  lead2.x - self.x < r:
+                alpha2 = (self.s0 + max(0, self.T*self.v + delta_v2*self.v/self.sqrt_ab)) / delta_x2
+            else:
+                alpha2 = 0
+            if  lead3.x - self.x < r:
+                alpha3 = (self.s0 + max(0, self.T*self.v + delta_v3*self.v/self.sqrt_ab)) / delta_x3
+            else:
+                alpha3 = 0
+            if  lead4.x - self.x < r:
+                alpha4 = (self.s0 + max(0, self.T*self.v + delta_v4*self.v/self.sqrt_ab)) / delta_x4
+            else:
+                alpha4= 0
+            if  lead5.x - self.x < r:
+                alpha5 = (self.s0 + max(0, self.T*self.v + delta_v5*self.v/self.sqrt_ab)) / delta_x5
+            else:
+                alpha5= 0
             alpha = alpha1+alpha2+alpha3+alpha4+alpha5
+            
 
         self.a = self.a_max * (1-(self.v/self.v_max)**4 - (alpha)**2)
 
@@ -78,7 +94,5 @@ class Vehicle:
     def unslow(self):
         self.v_max = self._v_max
     
-    def periodicinfo(self,lead1,r):
-        
-        return 
+    
         
