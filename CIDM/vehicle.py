@@ -39,7 +39,7 @@ class Vehicle:
         self._v_max = self.v_max
         self.info=self.info
 
-    def update(self, lead, dt):
+    def update(self, lead1, dt):
         # Update position and velocity
         if self.v + self.a*dt < 0:
             self.x -= 1/2*self.v*self.v/self.a
@@ -50,9 +50,9 @@ class Vehicle:
 
         # Update acceleration
         alpha = 0
-        if lead:
-            delta_x = lead.x - self.x - lead.l
-            delta_v = self.v - lead.v
+        if lead1:
+            delta_x1 = lead1.x - self.x - lead1.x
+            delta_v1 = self.v - lead1.v
 
             alpha = (self.s0 + max(0, self.T*self.v + delta_v*self.v/self.sqrt_ab)) / delta_x
 
