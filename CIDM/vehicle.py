@@ -39,7 +39,7 @@ class Vehicle:
         self._v_max = self.v_max
         self.info=self.info
 
-    def update(self, lead1, dt):
+    def update(self, lead1, lead2, lead3, lead4, lead5, dt):
         # Update position and velocity
         if self.v + self.a*dt < 0:
             self.x -= 1/2*self.v*self.v/self.a
@@ -50,13 +50,18 @@ class Vehicle:
 
         # Update acceleration
         alpha = 0
-        if lead1:
-            delta_x1 = lead1.x - self.x - lead1.x
+        if lead1 & lead2 & lead3 & lead4 & lead5:
+            delta_x1 = lead1.x - self.x - lead1.l
             delta_v1 = self.v - lead1.v
 
-            alpha = (self.s0 + max(0, self.T*self.v + delta_v*self.v/self.sqrt_ab)) / delta_x
+            alpha1 = (self.s0 + max(0, self.T*self.v + delta_v1*self.v/self.sqrt_ab)) / delta_x1
+            alpha2 = (self.s0 + max(0, self.T*self.v + delta_v2*self.v/self.sqrt_ab)) / delta_x2
+            alpha3 = (self.s0 + max(0, self.T*self.v + delta_v3*self.v/self.sqrt_ab)) / delta_x3
+            alpha4 = (self.s0 + max(0, self.T*self.v + delta_v4*self.v/self.sqrt_ab)) / delta_x4
+            alpha5 = (self.s0 + max(0, self.T*self.v + delta_v5*self.v/self.sqrt_ab)) / delta_x5
+            alpha = alpha1+alpha2+alpha3+alpha4+alpha5
 
-        self.a = self.a_max * (1-(self.v/self.v_max)**4 - alpha**2)
+        self.a = self.a_max * (1-(self.v/self.v_max)**4 - (alpha)**2)
 
         if self.stopped:
             self.a = -self.b_max*self.v/self.v_max
@@ -73,5 +78,7 @@ class Vehicle:
     def unslow(self):
         self.v_max = self._v_max
     
-    def periodicinfo(self,others,r):
+    def periodicinfo(self,lead1,r):
+        
+        return 
         
