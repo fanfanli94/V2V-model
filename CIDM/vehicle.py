@@ -16,10 +16,15 @@ class Vehicle:
     def set_default_config(self):
         self.l = 4
         self.s0 = 4
-        self.T = 1
+        #self.T = 1
+        self.T = 1.1
         self.v_max = 16.6
-        self.a_max = 1.44
-        self.b_max = 4.61
+        #self.a_max = 1.44
+        self.a_max = 1
+        #self.b_max = 4.61
+        self.b_max = 2
+        
+        self.info=0
 
         self.path = []
         self.current_road_index = 0
@@ -32,6 +37,7 @@ class Vehicle:
     def init_properties(self):
         self.sqrt_ab = 2*np.sqrt(self.a_max*self.b_max)
         self._v_max = self.v_max
+        self.info=self.info
 
     def update(self, lead, dt):
         # Update position and velocity
@@ -66,3 +72,6 @@ class Vehicle:
 
     def unslow(self):
         self.v_max = self._v_max
+    
+    def periodicinfo(self,others,r):
+        
